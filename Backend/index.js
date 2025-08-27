@@ -6,9 +6,11 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 import { todo } from "./db.js";  
+import cors from "cors"
 
 
 app.use(express.json())
+app.use(cors())
  
 
 app.post('/todo',async(req,res)=>{
