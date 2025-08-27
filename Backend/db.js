@@ -4,20 +4,20 @@
 //    completed:boolean
 // // }
 
-const mongoose = require('mongoose')
+import mongoose from "mongoose";
 
 
 
 
 const TodoSchema = mongoose.Schema({
-    title:string,
-    description:string,
-    completed:boolean
+    title:String,
+    description:String,
+    completed:Boolean
 })
 
 const todo = mongoose.model('todo',TodoSchema)
 
-module.exports={
+export{
     todo
 }
 
