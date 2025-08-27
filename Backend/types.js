@@ -1,4 +1,4 @@
-const z = require('zod')
+import {z} from 'zod'
 
 const createTodo = z.object({
     title:z.string(),
@@ -9,7 +9,7 @@ const updateTodo = z.object({
     id : z.string()
 })
 
-module.exports ={
-    createTodo:createTodo,
-    updateTodo:updateTodo
+export {
+    createTodo,
+    updateTodo
 }
