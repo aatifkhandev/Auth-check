@@ -1,16 +1,23 @@
-const express = require('express')
-const { createTodo, updateTodo } = require('./types')
+import express from 'express'
+import { createTodo, updateTodo } from './types.js'
 const app = express()
 const port = 3000
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
+import { todo } from "./db.js";  
+
 
 app.use(express.json())
  
 
 app.post('/todo',async(req,res)=>{
+   console.log("POST /todo hit");
+  console.log("Body:", req.body);
 
   const createPayload = req.body
   const parsedPayload = createTodo.safeParse(createPayload)
-  if(!parsedPayload){
+  if(!parsedPayload.success){
     res.status(411).json({
       msg:"you sent the wrong inputs"
     })
@@ -33,6 +40,7 @@ app.post('/todo',async(req,res)=>{
 
 app.get('/todos',async(req,res)=>{
 const todos =   await todo.find({})
+
 res.json({
   todos
 })
@@ -41,13 +49,13 @@ res.json({
 app.put('/completed',async(req,res)=>{
 const updatedPayload = req.body
 const parsedPayload = updateTodo.safeParse(updatedPayload )
-     if(!parsedPayload){
+     if(!parsedPayload.success){
       res.status(411).json({
         msg:"you have sent wrong inputs"
       })
       return
      }
-     await todo.update({
+     await todo.updateOne({
       _id:req.body.id
      },{
       completed:true
@@ -63,6 +71,7 @@ async function main(){
    
    app.listen(port,()=>{
        console.log(`listening on ${port}`);
+       console.log("MongoDB connected ✅");
        
    })
 }
