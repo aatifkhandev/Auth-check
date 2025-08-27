@@ -40,7 +40,14 @@ const parsedPayload = updateTodo.safeParse(updatedPayload )
      }
 })
 
-app.listen(port,()=>{
-    console.log(`Listening on ${port}`);
-    
-})
+async function main(){
+   await mongoose.connect(process.env.MONGO_URL)
+   console.log("Connected to mongo");
+   
+   app.listen(port,()=>{
+       console.log(`listening on ${port}`);
+       
+   })
+}
+
+main()
